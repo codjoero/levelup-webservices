@@ -18,24 +18,36 @@ def bad_request(error):
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+@app.errorhandler(401)
+def unauthorized(error):
+    return make_response(jsonify({'error': 'Unauthorized'}), 401)
+
 """ 
 Accounts Endpoits
 """
 @app.route('/todo/api/v0.1/users', methods=['POST'])
 def create_user():
-    pass
+    return jsonify({'New User': account.create_user()}), 201
 
-@app.route('/todo/api/v0.1/users', methods=['PUT'])
+
+@app.route('/todo/api/v0.1/users', methods=['GET'])
+def get_users():
+    return jsonify({'Users': account.accounts}), 201
+
+
+@app.route('/todo/api/v0.1/users/login', methods=['PATCH'])
 def login_user():
-    pass
+    return jsonify({'Status': account.login_user()}), 200
 
-@app.route('/todo/api/v0.1/users/<int:task_id>', methods=['PUT'])
-def logout_user():
-    pass
+
+@app.route('/todo/api/v0.1/users/<string:username>', methods=['GET'])
+def logout_user(username):
+    return jsonify({'Status': account.logout_user(username)}), 201
+
 
 @app.route('/todo/api/v0.1/users/<int:task_id>', methods=['DELETE'])
 def delete_user():
-    pass
+    return jsonify({'Status': account.delete_user()}), 201
 
 """ 
 Tasks Endpoints
