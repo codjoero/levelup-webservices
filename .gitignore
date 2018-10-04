@@ -1,2 +1,5 @@
 flask/
 .vscode/
+accounts.pyc
+app.pyc
+tasks.pyc
